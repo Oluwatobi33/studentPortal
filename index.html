@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
+</head>
+<body style="text-align:center">
+    <div class="container" style="background-image: url(./tobi.webp); background-size:cover;width: auto; height: auto;">
+        <div class="row justifty-content-center ">
+            <div class="col-md-6 text-center">
+                <h3 class="text-dark fw-bold display-4">Student Portal</h3>
+                <input type="text" placeholder="Firtsname" id="fname" class="form-control my-2">
+                <input type="text" placeholder="lastname" id="lname" class="form-control my-2">
+                <input type="text" placeholder="Email" id="email" class="form-control my-2">
+                <input type="password" placeholder="Password" id="pwd" class="form-control my-2">
+                <input type="text" placeholder="Matric_no" id="mtn" class="form-control my-2">
+                <button onclick="sub()" class="btn btn-primary mt-4 btn-lg">Save</button>
+                <button onclick="show()" class="btn btn-danger mt-4 btn-lg">Show</button>
+            </div>
+        </div>
+        <div class="row justifty-content-center">
+            <div class="col-md-4 text-center">
+                <div class="">
+                    <table  border="1" style="margin-top: 34px; margin-left: 75px;" class="table-striped table  table-hover" >
+                        <thead>
+                            <tr class="bg-primary">
+                                <th class="text-white fw-bold bg-info ">S/N</th>
+                                <th class="text-white  fw-bold bg-primary">FirstName</th>
+                                <th class="text-white  fw-bold bg-success">lastName</th>
+                                <th class="text-white  fw-bold bg-danger">email</th>
+                                <th class="text-white">password</th>
+                                <th>matric_no</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tab" class="table-reponsive bg-dark text-white"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let myArray = [];
+        function sub(){
+            var a = fname.value;
+            fname.value = ""
+            var b = lname.value;
+            lname.value = ""
+            var c = email.value;
+            email.value = ""
+            var d = pwd.value;
+            pwd.value = ""
+            var e = mtn.value;
+            mtn.value = ""
+
+            var tope = {
+                firstname:a,
+                lastname:b,
+                email:c,
+                password:d,
+                matric_no:e
+            }
+            // myArray.push(tope)
+            if (tope.firstname == "" && tope.lastname == ""  && tope.email == "" && tope.password == "" && tope.matric_no == ""){
+               alert("fill in a value")
+           
+            }else{
+                myArray.push(tope)  
+            }  
+        }
+        function show(){
+        let tobi = ""
+            // tobi += "<tr>"
+                for (let i = 0; i <myArray.length; i++){
+                    tobi += "<tr><td>" + (i+1) + "</td>"  + "<td>" + myArray[i].firstname + "</td>" + "<td>"  + myArray[i].lastname + "</td>" +  "<td>" + myArray[i].email + "</td>" +  "<td>" + myArray[i].password + "</td>" +  "<td>" + myArray[i].matric_no + "</td>"+ "</tr>"
+
+                }
+            // tobi += "</tr>"
+            tab.innerHTML = tobi
+            console.log(tobi)
+        }
+       
+    </script>
+</body>
+</html>
