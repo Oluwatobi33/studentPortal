@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }      
+        @media screen and (max-width:414px){
+            .row{
+                width: 95vw;
+                
+            }
+            input {
+                margin:0px 9px;
+            }
+            
+        }
+    </style>
+</head>
+<body  class="bg-danger" onload="re()">
+    <div  class="container mt-5">
+        <div class="row justifty-content-center">
+            <div class="col-10 text-center">
+                <h3 class="text-white fw-bold float-start">Student Portal</h3>
+                <input type="text" placeholder="Firtsname" id="fname" class="form-control my-2">
+                <input type="text" placeholder="lastname" id="lname" class="form-control my-2">
+                <input type="text" placeholder="Email" id="email" class="form-control my-2">
+                <input type="password" placeholder="Password" id="pwd" class="form-control my-2">
+                <input type="text" placeholder="Matric_no" id="mtn" class="form-control my-2">
+                <button onclick="sub()" class="btn btn-primary mt-4 btn-lg">Save</button>
+                <button onclick="show()" class="btn btn-success mt-4 btn-lg">Show</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justifty-content-center">
+            <div class="col-10 text-center">
+                <table  border="1" style="margin-top: 34px;" class="table-striped table table-reponsive  table-hover" >
+                    <thead>
+                        <tr class="bg-primary">
+                            <th class="text-white fw-bold bg-info">S/N</th>
+                            <th class="text-white fw-bold bg-primary">FirstName</th>
+                            <th class="text-white fw-bold bg-success">lastName</th>
+                            <th class="text-white fw-bold bg-danger">email</th>
+                            <th class="text-white">password</th>
+                            <th  class="text-white">matric_no</th>
+                            <th  class="text-white">Edit</th>
+                            <th  class="text-white">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab" class="table-reponsive bg-dark text-white"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let myArray = [];
+        const re = ()=>{
+            if (localStorage.stportal) {
+                myArray = JSON.parse(localStorage.stportal)
+                console.log(myArray);
+            }
+        }
+        function sub(){
+            var a = fname.value;
+            fname.value = ""
+            var b = lname.value;
+            lname.value = ""
+            var c = email.value;
+            email.value = ""
+            var d = pwd.value;
+            pwd.value = ""
+            var e = mtn.value;
+            mtn.value = ""
+
+            var tope = {
+                firstname:a,
+                lastname:b,
+                email:c,
+                password:d,
+                matric_no:e
+            }
+            if (tope.firstname == "" && tope.lastname == ""  && tope.email == "" && tope.password == "" && tope.matric_no == ""){
+               alert("fill in a value")
+           
+            }else{
+                myArray.push(tope)
+                localStorage.stportal = JSON.stringify(myArray)
+            }  
+              
+        }
+        function show(){
+        let tobi = ""
+            for (let i = 0; i <myArray.length; i++){
+                tobi += "<tr><td>" + (i+1) + "</td>"  + "<td>" + myArray[i].firstname + "</td>" + "<td>"  + myArray[i].lastname + "</td>" +  "<td>" + myArray[i].email + "</td>" +  "<td>" + myArray[i].password + "</td>" +  "<td>" + myArray[i].matric_no + "</td>"+ `<td><button onclick="editName(${i})">Edit</button></td>` + `<td> <button onclick="del(${i})">del</button></td>`+ "</tr>"
+
+            }
+            tab.innerHTML = tobi
+            // console.log(tobi)
+        }
+        const del = (i)=>{
+           if(confirm('Are you sure you want to delete ' + myArray[i].firstName +" " + myArray[i].lastName + ' from this list') == true){
+                myArray.splice(i,1);
+                // a = JSON.stringify(names);
+                // localStorage.setItem('familyTree', a);
+                show();
+            } else{
+                alert("No changes were made")
+            }
+        }
+        const editName=(b)=>{
+                // alert(editName)
+             fname.value = myArray[b].firstname
+             lname.value = myArray[b].lastname
+             email.value = myArray[b].email
+             pwd.value = myArray[b].password
+             mtn.value = myArray[b].matric_no
+            }
+       
+    </script>
+</body>
+</html>
